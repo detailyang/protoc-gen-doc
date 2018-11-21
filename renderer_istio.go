@@ -13,9 +13,11 @@ import (
 
 var (
 	api = map[string]bool{
-		"Gateway":        true,
-		"ServiceEntry":   true,
-		"VirtualService": true,
+		"Gateway":         true,
+		"ServiceEntry":    true,
+		"VirtualService":  true,
+		"DestinationRule": true,
+		"EnvoyFilter":     true,
 	}
 	extensions = parser.CommonExtensions | parser.AutoHeadingIDs
 )
