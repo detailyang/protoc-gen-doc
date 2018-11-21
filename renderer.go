@@ -21,6 +21,7 @@ const (
 	RenderTypeHTML
 	RenderTypeJSON
 	RenderTypeMarkdown
+	RenderTypeIstio
 )
 
 // NewRenderType creates a RenderType from the supplied string. If the type is not known, (0, error) is returned. It is
@@ -33,6 +34,8 @@ func NewRenderType(renderType string) (RenderType, error) {
 		return RenderTypeHTML, nil
 	case "json":
 		return RenderTypeJSON, nil
+	case "istio":
+		return RenderTypeIstio, nil
 	case "markdown":
 		return RenderTypeMarkdown, nil
 	}
@@ -53,6 +56,8 @@ func (rt RenderType) renderer() (Processor, error) {
 		return &htmlRenderer{string(tmpl)}, nil
 	case RenderTypeJSON:
 		return new(jsonRenderer), nil
+	case RenderTypeIstio:
+		return new(istioRenderer), nil
 	case RenderTypeMarkdown:
 		return &htmlRenderer{string(tmpl)}, nil
 	}
@@ -67,6 +72,8 @@ func (rt RenderType) template() ([]byte, error) {
 	case RenderTypeHTML:
 		return fetchResource("html.tmpl")
 	case RenderTypeJSON:
+		return nil, nil
+	case RenderTypeIstio:
 		return nil, nil
 	case RenderTypeMarkdown:
 		return fetchResource("markdown.tmpl")
